@@ -1,1 +1,0 @@
-<h1> este e a pagina de ajuda</h1>

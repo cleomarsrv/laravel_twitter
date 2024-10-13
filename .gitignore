@@ -19,8 +19,3 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
-
-/.devcontainer
-Dockerfile
-start.sh
-docker-compose.yaml
