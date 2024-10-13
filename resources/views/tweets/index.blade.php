@@ -21,11 +21,38 @@
                     <div class="flex justify-between items-center">
                         <div>
                             <span class="text-gray-800">{{ $tweet->user->name }}</span>
-                            <small class="ml-2 text-sm text-gray-600">{{ $tweet->created_at->format('j M Y, g:i a') }}</small>
+                            <small class="ml-2 text-sm text-gray-600">{{'publicado '}}{{$tweet->created_at->format('d/m/Y H:i') }}</small>
                         </div>
                     </div>
                     <p class="mt-4 text-lg text-gray-900">{{ $tweet->message }}</p>
+                    
+                    <div class="mt-4 bg-white shadow-sm rounded-lg divide-y">
+                        @foreach ($tweet->comentarios as $comentario)
+                        <div class="comentarios mt-4" style="margin-left: 40px;">
+                            <div>
+                                <span class="text-gray-800">{{ $comentario->user->name }}</span>
+                                <small class="ml-2 text-sm text-gray-600"> {{'comentado '}}{{$comentario->created_at->format('d/m/Y H:i')}}</small>
+                            </div>
+                            <p class="mt-1 text-sm text-gray-800">{{ $comentario->comentario }}</p>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <form action="{{ route('comentarios.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+                        <textarea
+                            name="comentario"
+                            style="background-color:black; color:white;"
+                            placeholder="{{ __('poste seu comentario') }}"
+                            class="block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm"
+                        >{{ old('comentario') }}</textarea>
+                        <x-input-error :messages="$errors->get('comentario')" class="mt-2" />
+                        <x-primary-button class="mt-4">{{ __('Comentar') }}</x-primary-button>
+                    </form>
+
                 </div>
+
             </div>
             @endforeach
         </div>

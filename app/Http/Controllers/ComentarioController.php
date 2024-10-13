@@ -4,23 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Tweet;
 use App\Models\Comentario;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 
-class TweetController extends Controller
+class ComentarioController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
+    public function index()
     {
-        return view('tweets.index', [
-
-            'tweets' => Tweet::with('user')->latest()->get(),
-            'comentarios' => Comentario::with('tweet')->latest()->get(),
-
-        ]);
+        //
     }
 
     /**
@@ -34,23 +27,24 @@ class TweetController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): RedirectResponse
+    public function store(Tweet $tweet, Request $request)
     {
-        $validated = $request->validate([
+        $user_id = Tweet::find($request->tweet_id)->user_id;
 
-            'message' => 'required|string|max:240',
-
-        ]);
-
-        $request->user()->tweets()->create($validated);
-
+        $comentario = Comentario::create([
+            'comentario' => $request['comentario'],
+            'tweet_id' => $request['tweet_id'],
+            'user_id' => auth()->user()->id,
+        ]); 
+        
         return redirect(route('tweets.index'));
     }
+ 
 
     /**
      * Display the specified resource.
      */
-    public function show(Tweet $tweet)
+    public function show(Comentario $comentario)
     {
         //
     }
@@ -58,7 +52,7 @@ class TweetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tweet $tweet)
+    public function edit(Comentario $comentario)
     {
         //
     }
@@ -66,7 +60,7 @@ class TweetController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tweet $tweet)
+    public function update(Request $request, Comentario $comentario)
     {
         //
     }
@@ -74,7 +68,7 @@ class TweetController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tweet $tweet)
+    public function destroy(Comentario $comentario)
     {
         //
     }
