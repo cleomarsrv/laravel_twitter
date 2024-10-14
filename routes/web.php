@@ -16,10 +16,6 @@ Route::get('/publicacoes', function () {
     return view('tweets.publicacoes');
 });
 
-Route::get('/laravel', function () {
-    return view('welcomeLaravel');
-});
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

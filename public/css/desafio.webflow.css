@@ -4,6 +4,10 @@
   margin-left: auto;
 }
 
+.alerta {
+  color:red;
+}
+
 .body {
   background-color: #fff;
 }
@@ -11,12 +15,12 @@
 .div-azul {
   display: inline-block;
   width: 50%;
-  height: 1000px;
+  height: 100vh;
   float: left;
   background-color: #039ff5;
   background-image: url('../images/iconfinder-icon.svg');
-  background-position: 0% 50%;
-  background-size: 1200px;
+  background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
@@ -30,7 +34,7 @@
 }
 
 .div-entrar {
-  margin-bottom: 200px;
+  margin-bottom: 130px;
 }
 
 .text-field-entrar {
@@ -236,6 +240,7 @@
   margin-bottom: 15px;
   padding: 15px;
   border-style: solid;
+  resize: none;
   border-width: 1px;
   border-color: rgba(0, 0, 0, 0.3);
   border-radius: 6px;
@@ -342,6 +347,7 @@
   width: 95%;
   height: auto;
   margin-top: 3%;
+  resize: none;
   padding-top: 10px;
   padding-bottom: 10px;
   float: right;

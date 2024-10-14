@@ -15,13 +15,19 @@ class CadastroController extends Controller
     // Processa o registro do usuário
     public function cadastrar(Request $request)
     {
-        // Validação dos dados
+
         $request->validate([
             'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed',
-        ]);
-        
+            'password' => 'required|confirmed'
+          ], [
+            'email.required' => 'preencha campo email',
+            'email.email' => 'preencha um email válido',
+            'password.required' => 'digite uma senha válida',
+            'password.confirmed' => 'senhas digitadas são diferentes',
+          ]);
+
+
         // Criação do usuário
         $user = User::create([
             'name' => $request->name,

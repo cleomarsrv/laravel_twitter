@@ -4,7 +4,7 @@
 <html data-wf-page="5da766d32783b34770fbc796" data-wf-site="5da766d32783b3459dfbc795">
 <head>
   <meta charset="utf-8">
-  <title>Desafio</title>
+  <title>Início</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
@@ -25,10 +25,7 @@
     @if (auth()->check())
         Ja logado {{ auth()->user()->firstName }}  | <a href="{{ route('login.destroy') }}">logout</a>
     @endif
-    
-    @error('error')
-        <span>{{ $message }}</span>
-    @enderror
+
   <div class="topo">
     <div class="container w-clearfix">
     <div class="div-azul"></div>
@@ -36,23 +33,25 @@
         <div class="div-entrar">
           <div class="w-form">
 
-            <form method="POST" action="{{ route('login.store') }}" id="email-form" name="email-form" data-name="Email Form" class="w-clearfix">
+            <form method="POST" action="{{ route('login.store') }}" id="form-login" name="form-login" data-name="Form Login" class="w-clearfix">
                 @csrf
                 <div class="div-text-field w-clearfix">
-                    <input type="email" maxlength="256" placeholder="E-MAIL" id="email" name="email" required class="text-field-entrar margem-right w-input">
-                    @error('email')
-                        <span>{{ $message }}</span>
-                    @enderror
+                    <input type="email" maxlength="256" placeholder="E-MAIL" id="mail" name="email" required class="text-field-entrar margem-right w-input">
                     <input type="password" maxlength="256" placeholder="SENHA" id="password" name="password" required class="text-field-entrar w-input">
-                    @error('password')
-                        <span>{{ $message }}</span>
-                    @enderror
-                    <a href="#" class="link-esqueceu-sua-senha">Esqueceu sua senha?</a>
+                    <a href="{{ route('password.request') }}" class="link-esqueceu-sua-senha">Esqueceu sua senha?</a>
+                    @if ($errors->any())
+                    <div class="alerta">
+                        <ul>
+                            @if ($errors->has('erro_usuario_senha'))
+                                {{ $errors->first('erro_usuario_senha') }}
+                            @endif
+                        </ul>
+                    </div>
+                    @endif
+
                 </div>
                 <input type="submit" value="ENTRAR" data-wait="Please wait..." class="botao-entrar w-button">
             </form>
-
-
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
@@ -65,12 +64,15 @@
           <p class="cadastre-se">cadastre-se</p>
           <div class="w-form">
 
-            <form method="POST" action="{{ route('cadastrar') }}" id="email-form-2" name="email-form-2" data-name="Email Form 2">
+            <form method="POST" action="{{ route('cadastrar') }}" id="form-cadastro" name="form-cadastro" data-name="Form Cadastro">
               @csrf
-              <input type="text" class="text-field-cadastrar w-input" maxlength="100" name="name" data-name="Name" placeholder="NOME" id="name">
-              <input type="email" class="text-field-cadastrar w-input" maxlength="256" name="email" data-name="Name 2" placeholder="E-MAIL" id="email">
-              <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="password" data-name="Name 3" placeholder="SENHA" id="password">
-              <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="password_confirmation" data-name="Name 3" placeholder="CONFIRMAR SENHA" id="password_confirmation">
+              <input type="text" class="text-field-cadastrar w-input" maxlength="100" name="name" required data-name="Name" value="{{ old('name') }}" placeholder="NOME" id="name">
+              <input type="email" class="text-field-cadastrar w-input" maxlength="256" name="email" required data-name="Name 2" placeholder="E-MAIL" id="email" value="{{ old('email') }}">
+              <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="password" required value="{{ old('password') }}" data-name="Name 3" placeholder="SENHA" id="password">
+              <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="password_confirmation" required data-name="Name 3" placeholder="CONFIRMAR SENHA" id="password_confirmation" value="{{ old('password_confirmation') }}">
+              @error('password')
+                <p class="alerta">{{ $message }}</p>
+              @enderror
               <input type="submit" value="CADASTRAR" data-wait="Please wait..." class="botao-cadastrar w-button">
             </form>
 

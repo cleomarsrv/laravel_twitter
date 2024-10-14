@@ -31,6 +31,12 @@ class ComentarioController extends Controller
     {
         $user_id = Tweet::find($request->tweet_id)->user_id;
 
+        $request->validate([
+            'comentario' => 'required',
+          ], [
+            'comentario.required' => 'digite o comentário',
+          ]);
+
         $comentario = Comentario::create([
             'comentario' => $request['comentario'],
             'tweet_id' => $request['tweet_id'],
