@@ -47,30 +47,31 @@
             </div>
           </div>
         </div>
+        
         <p class="feed">feed</p>
+        @forelse ($tweets as $tweet)
         <div class="div-publicacao-feed">
-        @foreach ($tweets as $tweet)
           <div>
             <span class="text-gray-800">{{ $tweet->user->name }}</span>
             <small class="ml-2 text-sm text-gray-600">{{'publicado '}}{{$tweet->created_at->format('d/m/Y H:i') }}</small>
           </div>
           <p class="texto-publicacao">{{ $tweet->message }}</p>
+          @foreach ($tweet->comentarios as $comentario)
           <div class="div-comentario-existente">
-            @foreach ($tweet->comentarios as $comentario)
-            <p class="nome-perfil-comentario">{{ $comentario->user->name }}</p>
-              <div>
-                  <small class="ml-2 text-sm text-gray-600"> {{'comentado '}}{{$comentario->created_at->format('d/m/Y H:i')}}</small>
-              </div>
-              <p class="comentario">{{ $comentario->comentario }}</p>
-            @endforeach
+            <div>
+              <span class="nome-perfil-comentario">{{ $comentario->user->name }}</span>
+              <small class="ml-2 text-sm text-gray-600"> {{'comentado '}}{{$comentario->created_at->format('d/m/Y H:i')}}</small>
+            </div>
+            <p class="comentario">{{ $comentario->comentario }}</p>
+          </div>
+          @endforeach
 
             <div class="w-form">
               
               <form action="{{ route('comentarios.store') }}" method="POST" id="email-form-2" name="email-form-2" data-name="Email Form 2" class="w-clearfix">
                 @csrf
                 <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
-
-                <textarea name="comentario" placeholder="..." maxlength="5000" id="field-2" class="textarea w-input"></textarea>
+                <textarea name="comentario" placeholder="comente esta publicação" maxlength="5000" id="field-2" class="textarea w-input"></textarea>
                 <input type="submit" value="poste seu comentario" data-wait="Please wait..." class="submit-button w-button">
               </form>
               <div class="w-form-done">
@@ -81,33 +82,38 @@
               </div>
             </div>
 
-          </div>
-          @endforeach
         </div>
+        @empty
+        <div class="texto-publicacao">
+          <p>Nada por aqui. Publique algo ou siga usuários interessantes.</p>
+        </div>
+        @endforelse
       </div>
     </div>
 
     <div class="div-usuarios">
         @foreach ($users as $user)
-            <div>
-              @if (auth()->user()->id !== $user->id)
-              <h4>{{ $user->name }}</h4>
-                
-                @if (auth()->user()->followings()->where('user_id', $user->id)->exists())
-                <form  method="POST" action="{{ route('users.unfollow', $user->id) }}">
-                  @csrf
-                    <button type="submit" class="botao-deseguir">Desseguir</button>
-                  </form>
-                  @else
-                  <form  method="POST" action="{{ route('users.follow', $user->id) }}">
-                  @csrf
-                  <button type="submit" class="botao-seguir">seguir</button>
-                </form>
-                @endif
-              @endif
-              </div>
+          @if (auth()->user()->id !== $user->id)
+          <div class="div-botao">
+            <div class="div-dados-usuario">
+              <p class="texto-usuario-nome">{{ $user->name }}</h4>
+              <p class="texto-email">{{ $user->email }}</h4>
+            </div>
+              
+            @if (auth()->user()->followings()->where('user_id', $user->id)->exists())
+              <form  method="POST" action="{{ route('users.unfollow', $user->id) }}">
+              @csrf
+                <button type="submit" class="botao-deseguir">Desseguir</button>
+              </form>
+            @else
+              <form  method="POST" action="{{ route('users.follow', $user->id) }}">
+              @csrf
+                <button type="submit" class="botao-seguir">seguir</button>
+              </form>
+            @endif
+          </div>
+          @endif
         @endforeach
-
     </div>
 
   </div>

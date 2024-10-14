@@ -17,7 +17,7 @@ class CadastroController extends Controller
     {
         // Validação dos dados
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:100',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
         ]);
