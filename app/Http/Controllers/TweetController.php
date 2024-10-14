@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tweet;
+use App\Models\User;
 use App\Models\Comentario;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class TweetController extends Controller
 
             'tweets' => Tweet::with('user')->latest()->get(),
             'comentarios' => Comentario::with('tweet')->latest()->get(),
-
+            'users' => User::all()
         ]);
     }
 
