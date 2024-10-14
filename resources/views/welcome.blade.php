@@ -64,7 +64,16 @@
         <div class="div-cadastrar">
           <p class="cadastre-se">cadastre-se</p>
           <div class="w-form">
-            <form id="email-form-2" name="email-form-2" data-name="Email Form 2"><input type="text" class="text-field-cadastrar w-input" maxlength="256" name="name" data-name="Name" placeholder="NOME" id="name"><input type="text" class="text-field-cadastrar w-input" maxlength="256" name="name-2" data-name="Name 2" placeholder="E-MAIL" id="name-2"><input type="text" class="text-field-cadastrar w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="SENHA" id="name-3"><input type="text" class="text-field-cadastrar w-input" maxlength="256" name="name-3" data-name="Name 3" placeholder="CONFIRMAR SENHA" id="name-3"><input type="submit" value="CADASTRAR" data-wait="Please wait..." class="botao-cadastrar w-button"></form>
+
+            <form method="POST" action="{{ route('cadastrar') }}" id="email-form-2" name="email-form-2" data-name="Email Form 2">
+              @csrf
+              <input type="text" class="text-field-cadastrar w-input" maxlength="100" name="name" data-name="Name" placeholder="NOME" id="name">
+              <input type="email" class="text-field-cadastrar w-input" maxlength="256" name="email" data-name="Name 2" placeholder="E-MAIL" id="email">
+              <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="password" data-name="Name 3" placeholder="SENHA" id="password">
+              <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="password_confirmation" data-name="Name 3" placeholder="CONFIRMAR SENHA" id="password_confirmation">
+              <input type="submit" value="CADASTRAR" data-wait="Please wait..." class="botao-cadastrar w-button">
+            </form>
+
             <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>

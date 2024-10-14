@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CadastroController;
 use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\TweetController;
@@ -40,6 +41,8 @@ Route::controller(LoginController::class)->group(function () {
     Route::post('/', 'store')->name('login.store');
     Route::get('/logout', 'destroy')->name('login.destroy');
   });
+
+Route::post('cadastrar', [CadastroController::class, 'cadastrar'])->name('cadastrar');
 
 Route::post('/users/{user}/follow',[FollowerController::class,'follow'])->middleware('auth')->name('users.follow');
 Route::post('/users/{user}/unfollow',[FollowerController::class,'unfollow'])->middleware('auth')->name('users.unfollow');
