@@ -21,11 +21,11 @@
 <body>
   <div class="topo-publicacoes w-clearfix">
 
-    <div class="div-perfil">
-      <p class="nome-perfil">joão</p>
-      <a href="#" class="botao-seguir w-inline-block">
-        <p class="seguir">seguir</p>
-      </a>
+    <div class="div-perfil sidebar">
+      <p class="nome-perfil">{{ auth()->user()->name }}</p>
+      <a class="{{ !$showAll ? 'menu-ativo' : '' }}" href="{{ route('tweets.index') }}">Meu Feed</a>
+      <a class="{{ $showAll ? 'menu-ativo' : '' }}" href="{{ route('tweets.index', ['show_all' => 1]) }}">Feed Completo</a>
+      <a href="{{ route('logout') }}">Sair</a>
     </div>
 
     <div class="div-feed">
@@ -47,7 +47,7 @@
             </div>
           </div>
         </div>
-        <p class="feed">Meu feed</p>
+        <p class="feed">feed</p>
         <div class="div-publicacao-feed">
         @foreach ($tweets as $tweet)
           <div>

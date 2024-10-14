@@ -14,22 +14,32 @@ class TweetController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index() : View
-    {
-        return view('tweets.index', [
 
-            'tweets' => Tweet::with('user')->latest()->get(),
-            'comentarios' => Comentario::with('tweet')->latest()->get(),
-            'users' => User::all()
-        ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function index(Request $request)
     {
-        //
+        $user = auth()->user();
+    
+        // checando se parâmetro 'show_all' está na URL, padrão é 0(exibir meu feed)
+        $showAll = $request->input('show_all', 0);
+    
+        if ($showAll == 1) {
+            $tweets = Tweet::with('user', 'comentarios')->orderBy('created_at', 'desc')->get();
+        } else {
+            // Exibir apenas os tweets do usuário logado e quem ele segue
+            $followingIds = $user->followings()->pluck('users.id')->toArray();
+            // Adiciona o próprio usuário à consulta
+            $followingIds[] = $user->id;
+    
+            $tweets = Tweet::with('user', 'comentarios')
+                           ->whereIn('user_id', $followingIds)
+                           ->orderBy('created_at', 'desc')
+                           ->get();
+        }
+    
+        // todos os usuários para opcao seguir/desseguir
+        $users = User::all();
+    
+        return view('tweets.index', compact('tweets', 'users', 'showAll'));
     }
 
     /**
@@ -47,6 +57,16 @@ class TweetController extends Controller
 
         return redirect(route('tweets.index'));
     }
+
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
 
     /**
      * Display the specified resource.

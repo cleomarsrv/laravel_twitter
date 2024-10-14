@@ -24,7 +24,7 @@ class LoginController extends Controller
       'password.required' => 'digite uma senha válida',
     ]);
 
-    // $user = User::where('email', $request->input('email'))->first();
+    $user = User::where('email', $request->input('email'))->first();
 
     if (!$user) {
       return redirect()->route('login.index')->withErrors(['error' => 'Email ou senha inválidos']);
