@@ -42,8 +42,11 @@ class ComentarioController extends Controller
             'tweet_id' => $request['tweet_id'],
             'user_id' => auth()->user()->id,
         ]); 
+
+        $feed = $request->query('show_all') == '1' ? '?show_all=1' : '?show_all=0';
         
-        return redirect(route('tweets.index'));
+        return redirect(url()->route('tweets.index') . $feed . "#tweet-" . $request->tweet_id);
+
     }
  
 

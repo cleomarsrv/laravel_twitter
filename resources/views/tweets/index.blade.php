@@ -50,7 +50,7 @@
         
         <p class="feed">feed</p>
         @forelse ($tweets as $tweet)
-        <div class="div-publicacao-feed">
+        <div class="div-publicacao-feed" id="tweet-{{ $tweet->id }}">
           <div>
             <span class="text-gray-800">{{ $tweet->user->name }}</span>
             <small class="ml-2 text-sm text-gray-600">{{'publicado '}}{{$tweet->created_at->format('d/m/Y H:i') }}</small>

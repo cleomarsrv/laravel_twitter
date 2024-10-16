@@ -17,28 +17,28 @@ class CadastroController extends Controller
     {
 
         $request->validate([
-            'name' => 'required|string|max:100',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|confirmed'
+            'cadastro_name' => 'required|string|max:100',
+            'cadastro_email' => 'required|email|unique:users,email',
+            'cadastro_password' => 'required|confirmed'
           ], [
-            'email.required' => 'preencha campo email',
-            'email.email' => 'preencha um email válido',
-            'password.required' => 'digite uma senha válida',
-            'password.confirmed' => 'senhas digitadas são diferentes',
+            'cadastro_email.required' => 'preencha campo email',
+            'cadastro_email.email' => 'preencha um email válido',
+            'cadastro_email.unique' => 'este email ja foi cadastrado',
+            'cadastro_password_confirmation.required' => 'digite uma senha válida',
+            'cadastro_password_confirmation.confirmed' => 'senhas digitadas são diferentes',
           ]);
-
 
         // Criação do usuário
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'name' => $request->cadastro_name,
+            'email' => $request->cadastro_email,
+            'password' => Hash::make($request->cadastro_password),
         ]);
 
         // Autenticar o usuário após o cadastro
         Auth::login($user);
 
-        // Redirecionar para a página inicial ou outra página após o cadastro
+        // Redirecionar para a página de tweets
         return redirect()->route('tweets.index')->with('success', 'Cadastro realizado com sucesso!');
     }
 }
