@@ -119,7 +119,7 @@
   background-color: #039ff5;
   text-align: center;
 }
-
+  
 .div-usuarios {
   position: fixed;
   left: auto;
@@ -134,7 +134,12 @@
   background-color: #039ff5;
   color: #fff;
   text-align: center;
-  overflow-y: auto;
+  overflow-y: scroll;
+}
+
+/* desativado exibicao do scrollbar, estava tendo comportamento indesejado */
+::-webkit-scrollbar {
+  display: none;
 }
 
 .menu-ativo {
@@ -164,17 +169,17 @@
   -webkit-transition: all 200ms ease;
   transition: all 200ms ease;
   font-family: 'PT Sans', sans-serif;
-  color: #0353f2;
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
   text-transform: uppercase;
-  background-color: #ffffff;
+  background-color: #446cef;
+  color: #ffffff;
 }
 
 .botao-seguir:hover {
-  background-color: #446cef;
-  color: #ffffff;
+  color: #0353f2;
+  background-color: #ffffff;
 }
 
 .botao-deseguir {
@@ -254,6 +259,20 @@
   text-align: center;
 }
 
+.texto-usuario-link {
+  font-size: 16px;
+  color: #0e78b3;
+  font-family: Ubuntu, Helvetica, sans-serif;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.texto-usuario-link:hover {
+  text-decoration: underline;
+}
+
 .texto-email {
   font-size: 14px;
   color: #fff;
@@ -301,14 +320,12 @@
 }
 
 .nome-perfil-comentario {
-  /* display: block; */
   margin-bottom: 0px;
   padding-top: 10px;
   padding-bottom: 10px;
-  /* padding-left: 20px; */
-  /* border-style: solid solid none;
-  border-width: 1px;
-  border-color: rgba(0, 0, 0, 0.3); */
+  cursor: pointer;
+  text-decoration: underline;
+  color: #0e78b3;
   font-family: 'PT Sans', sans-serif;
   font-size: 15px;
   font-weight: 700;

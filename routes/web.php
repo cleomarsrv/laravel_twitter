@@ -43,4 +43,6 @@ Route::post('cadastrar', [CadastroController::class, 'cadastrar'])->name('cadast
 Route::post('/users/{user}/follow',[FollowerController::class,'follow'])->middleware('auth')->name('users.follow');
 Route::post('/users/{user}/unfollow',[FollowerController::class,'unfollow'])->middleware('auth')->name('users.unfollow');
 
+Route::get('/user/{id}', [FollowerController::class, 'getUser']);
+
 require __DIR__.'/auth.php';

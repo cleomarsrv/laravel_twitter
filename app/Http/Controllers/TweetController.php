@@ -55,7 +55,11 @@ class TweetController extends Controller
 
         $request->user()->tweets()->create($validated);
 
-        return redirect(route('tweets.index'));
+        // para permanecer na mesma url apos publicar
+        $urlOrigem = url()->previous();
+        $show = (strpos($urlOrigem, 'show_all=1') !== false) ? 1 : 0;
+
+        return redirect(route('tweets.index',  ['show_all' => $show]));
     }
 
 

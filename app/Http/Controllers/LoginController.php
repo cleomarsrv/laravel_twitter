@@ -36,7 +36,7 @@ class LoginController extends Controller
 
     Auth::loginUsingId($user->id);
 
-    return redirect(route('tweets.index'));
+    return redirect(route('tweets.index', ['show_all' => 0]));
 
   }
 
