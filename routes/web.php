@@ -5,6 +5,7 @@ use App\Http\Controllers\ComentarioController;
 use App\Http\Controllers\FollowerController;
 use App\Http\Controllers\TweetController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,7 @@ Route::resource('tweets', TweetController::class)
 Route::post('/comentarios',[ComentarioController::class,'store'])->name('comentarios.store');
 
 Route::controller(LoginController::class)->group(function () {
+
     Route::get('/', 'index')->name('login.index');
     Route::post('/', 'store')->name('login.store');
     Route::get('/logout', 'destroy')->name('login.destroy');

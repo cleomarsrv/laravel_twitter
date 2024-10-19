@@ -7,22 +7,24 @@
   <title>Início</title>
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
-  <link href="css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="css/webflow.css" rel="stylesheet" type="text/css">
-  <link href="css/desafio.webflow.css" rel="stylesheet" type="text/css">
+  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="/css/webflow.css" rel="stylesheet" type="text/css">
+  <link href="/css/desafio.webflow.css" rel="stylesheet" type="text/css">
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["PT Sans:400,400italic,700,700italic","Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic"]  }});</script>
   <!-- [if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" type="text/javascript"></script><![endif] -->
   <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
-  <link href="images/webclip.png" rel="apple-touch-icon">
+  <link href="/images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+  <link href="/images/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
+    
     @if (session()->has('success'))
         {{ session()->get('success') }} 
     @endif
-    
+
+    <x-auth-session-status class="mb-4" :status="session('status')" />
     @if (auth()->check())
         Ja logado {{ auth()->user()->firstName }}  | <a href="{{ route('login.destroy') }}">logout</a>
     @endif
@@ -41,7 +43,7 @@
                     <input type="password" maxlength="256" placeholder="SENHA" id="password" name="password" required class="text-field-entrar w-input">
                     <a href="{{ route('password.request') }}" class="link-esqueceu-sua-senha">Esqueceu sua senha?</a>
                     @if ($errors->any())
-                    <div class="alerta">
+                    <div class="alerta-erro">
                         <ul>
                             @if ($errors->has('erro_usuario_senha'))
                                 {{ $errors->first('erro_usuario_senha') }}
@@ -70,12 +72,12 @@
               <input type="text" class="text-field-cadastrar w-input" maxlength="100" name="cadastro_name" required data-name="Name" value="{{ old('cadastro_name') }}" placeholder="NOME" id="cadastro_name">
               <input type="email" class="text-field-cadastrar w-input" maxlength="256" name="cadastro_email" required data-name="email" placeholder="E-MAIL" id="cadastro_email" value="{{ old('cadastro_email') }}">
               @error('cadastro_email')
-                <p class="alerta">{{ $message }}</p>
+                <p class="alerta-erro">{{ $message }}</p>
               @enderror
               <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="cadastro_password" required onchange="confereSenha()" value="{{ old('cadastro_password') }}" data-name="Name 3" placeholder="SENHA" id="cadastro_password">
               <input type="password" class="text-field-cadastrar w-input" maxlength="256" name="cadastro_password_confirmation" required onchange="confereSenha()" data-name="Name 3" placeholder="CONFIRMAR SENHA" id="cadastro_password_confirmation" value="{{ old('cadastro_password_confirmation') }}">
               @error('password')
-                <p class="alerta">{{ $message }}</p>
+                <p class="alerta-erro">{{ $message }}</p>
               @enderror
               <input type="submit" value="CADASTRAR" data-wait="Please wait..." class="botao-cadastrar w-button">
             </form>
@@ -88,6 +90,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>

@@ -1,39 +1,33 @@
-<x-guest-layout>
-    <form method="POST" action="{{ route('password.store') }}">
-        @csrf
+@extends('layouts.base')
+@section('content')
+    <div class="div-cadastrar">
+        <div class="w-form">
+            <form method="POST" action="{{ route('password.store') }}">
+                @csrf
 
-        <!-- Password Reset Token -->
-        <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                {{-- token resetar senha --}}
+                <input type="hidden" name="token" value="{{ $request->route('token') }}">
+                
+                <x-text-input type="hidden" id="email" name="email" class="text-field-cadastrar w-input" :value="old('email', $request->email)"/>
 
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email', $request->email)" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                <p class="cadastre-se">Redefinir senha</p>
+
+                <h5>Email: {{old('email', $request->email)}}</h5>
+                
+                <!-- Password -->
+                <input type="password" class="text-field-cadastrar w-input" name="password" required placeholder="NOVA SENHA" id="password" required autocomplete="new-password">
+                <!-- Confirm Password -->
+                <input type="password" class="text-field-cadastrar w-input" name="password_confirmation" required placeholder="CONFIRMAR SENHA" id="password_confirmation" required autocomplete="new-password">
+                @error('password')
+                    <p class="alerta-erro">{{ $message }}</p>
+                @enderror
+                @error('email')
+                    <p class="alerta-erro">{{ $message }}</p>
+                @enderror
+                <input type="submit" value="{{ __('Reset Password') }}" class="botao-cadastrar w-button" data-wait="por favor aguarde...">
+                </div>
+            </form>
+
         </div>
-
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="new-password" />
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
-        </div>
-
-        <!-- Confirm Password -->
-        <div class="mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-            <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required autocomplete="new-password" />
-
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            <x-primary-button>
-                {{ __('Reset Password') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+@endsection

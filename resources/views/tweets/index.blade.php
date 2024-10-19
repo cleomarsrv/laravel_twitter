@@ -8,6 +8,10 @@
   <meta content="Publicações" property="og:title">
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
+
+  {{-- configuracao para o csrf_token funcionar nas requisicoes feitas no scriptTweets.js --}}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
   <link href="/css/normalize.css" rel="stylesheet" type="text/css">
   <link href="/css/webflow.css" rel="stylesheet" type="text/css">
   <link href="/css/desafio.webflow.css" rel="stylesheet" type="text/css">
@@ -75,7 +79,7 @@
                 <textarea name="comentario" placeholder="comente esta publicação" required maxlength="5000" id="field-2" class="textarea w-input"></textarea>
                 <input type="submit" value="comentar" data-wait="Please wait..." class="submit-button w-button">
                 @if ($errors->any())
-                <div class="alerta">
+                <div class="alerta-erro">
                   @foreach ($errors->all() as $error)
                       {{ $error }}
                   @endforeach
@@ -148,88 +152,7 @@
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="/js/webflow.js" type="text/javascript"></script>
-  <script>
-    $(document).ready(function() {
-      $('.openUserModal').on('click', function(e) {
-        e.preventDefault();
-        
-        var userId = $(this).data('id');
-        
-        $.ajax({
-              url: '/user/' + userId,
-              type: 'GET',
-              success: function(data) {
-                $('#modalName').text(data.name);
-                $('#modalEmail').text('email: ' + data.email);
-                
-                
-                // Captura o botão de seguir/desseguir e atribue userId
-                  var followButton = $('#modalBtnSeguir'); 
-                  followButton.attr('data-user-id', userId);
-
-                  // validacao para nao ter botao caso seja o proprio usuario atual
-                  if (data.is_self === false) {
-                    
-                    // validacao sobre o estado atual, se ja esta seguindo
-                    if (data.is_following) {
-                      followButton.text('Desseguir');
-                      followButton.removeClass().addClass('botao-deseguir')
-                      followButton.attr('data-action', 'unfollow');
-                    } else {
-                      followButton.text('Seguir');
-                      followButton.removeClass().addClass('botao-seguir')
-                      followButton.attr('data-action', 'follow');
-                    }
-                  } else {
-                    followButton.text('Esse é o seu perfil. Veja outro usuário para seguir / desseguir');
-                      followButton.removeClass().addClass('btn btn-secondary')
-                      followButton.attr('data-action', '');
-                    }
-                    
-                    $('#userModal').modal('show');
-                  }
-                });
-              });
-            });
-            
-  $('#modalBtnSeguir').click(function() {
-      
-    // Obtém o ID do usuário
-      var userId = $(this).attr('data-user-id'); 
-      // Verifica se a ação é 'follow' ou 'unfollow'
-      var action = $(this).attr('data-action');
-
-    
-      var url;
-      if (action === 'follow') {
-          url = '/users/' + userId + '/follow';
-      } else if (action === 'unfollow') {
-          url = '/users/' + userId + '/unfollow';
-      } else {
-          // caso for o proprio perfil nao tera acao seguir/desseguir
-          return;
-      }
-
-      // Envia a requisicao adequada conform url definida acima
-      $.ajax({
-          url: url,
-          type: 'POST',
-          data: {
-              _token: '{{ csrf_token() }}'
-          },
-          success: function(data) {
-              
-              // recarrega a pagina, para atualizar o feed e a lista de usuarios
-              location.reload();
-            
-          },
-          error: function(response) {
-              alert('Erro seguir/desseguir. tente novamente');
-          }
-      });
-  });
-
-</script>
+  <script src="/js/scriptTweets.js" type="text/javascript"></script>
   <!-- [if lte IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/placeholders/3.0.2/placeholders.min.js"></script><![endif] -->
 </body>
 </html>

@@ -4,8 +4,12 @@
   margin-left: auto;
 }
 
-.alerta {
+.alerta-erro {
   color:red;
+}
+
+.alerta-sucesso {
+  color:green;
 }
 
 .body {
@@ -52,7 +56,6 @@
 .botao-entrar {
   width: auto;
   height: 45px;
-  float: right;
   border-radius: 8px;
   -webkit-transition: all 200ms ease;
   transition: all 200ms ease;
