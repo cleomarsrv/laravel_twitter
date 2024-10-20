@@ -1,5 +1,5 @@
-
 $(document).ready(function() {
+
     $('.openUserModal').on('click', function(e) {
       e.preventDefault();
       
@@ -12,36 +12,35 @@ $(document).ready(function() {
               $('#modalName').text(data.name);
               $('#modalEmail').text('email: ' + data.email);
               
-              
               // Captura o botão de seguir/desseguir e atribue userId
-                var followButton = $('#modalBtnSeguir'); 
-                followButton.attr('data-user-id', userId);
+              var followButton = $('#modalBtnSeguir'); 
+              followButton.attr('data-user-id', userId);
 
-                // validacao para nao ter botao caso seja o proprio usuario atual
-                if (data.is_self === false) {
-                  
-                  // validacao sobre o estado atual, se ja esta seguindo
-                  if (data.is_following) {
-                    followButton.text('Desseguir');
-                    followButton.removeClass().addClass('botao-deseguir')
-                    followButton.attr('data-action', 'unfollow');
-                  } else {
-                    followButton.text('Seguir');
-                    followButton.removeClass().addClass('botao-seguir')
-                    followButton.attr('data-action', 'follow');
-                  }
+              // validacao para nao ter botao caso seja o proprio usuario atual
+              if (data.is_self === false) {
+                
+                // validacao sobre o estado atual, se ja esta seguindo
+                if (data.is_following) {
+                  followButton.text('Desseguir');
+                  followButton.removeClass().addClass('botao-deseguir')
+                  followButton.attr('data-action', 'unfollow');
                 } else {
-                    followButton.text('Esse é o seu perfil. Veja outro usuário para seguir / desseguir');
-                    followButton.removeClass().addClass('btn btn-secondary')
-                    followButton.attr('data-action', '');
+                  followButton.text('Seguir');
+                  followButton.removeClass().addClass('botao-seguir')
+                  followButton.attr('data-action', 'follow');
                 }
-                  
-                  $('#userModal').modal('show');
-                }
-              });
-            });
-          });
-          
+              } else {
+                  followButton.text('Esse é o seu perfil. Veja outro usuário para seguir / desseguir');
+                  followButton.removeClass().addClass('btn btn-secondary')
+                  followButton.attr('data-action', '');
+              }
+                
+              $('#userModal').modal('show');
+            }
+      }); 
+    });
+});
+
 $('#modalBtnSeguir').click(function() {
     
   // Obtém o ID do usuário
@@ -93,3 +92,14 @@ $('#modalBtnSeguir').click(function() {
         }
     });
 });
+
+function confereSenha() {
+  const cadastro_password = document.querySelector('input[data-name=pass1]');
+  const cadastro_password_confirmation = document.querySelector('input[data-name=pass2]');
+  
+  if (cadastro_password_confirmation.value === cadastro_password.value) {
+    cadastro_password_confirmation.setCustomValidity('');
+  } else {
+    cadastro_password_confirmation.setCustomValidity('as senhas digitadas não conferem');
+  }
+}

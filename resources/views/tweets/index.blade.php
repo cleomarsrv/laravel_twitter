@@ -9,7 +9,7 @@
   <meta content="width=device-width, initial-scale=1" name="viewport">
   <meta content="Webflow" name="generator">
 
-  {{-- configuracao para o csrf_token funcionar nas requisicoes feitas no scriptTweets.js --}}
+  {{-- configuracao para o csrf_token funcionar nas requisicoes feitas no scriptTwitter.js --}}
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
   <link href="/css/normalize.css" rel="stylesheet" type="text/css">
@@ -144,7 +144,7 @@
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="/js/webflow.js" type="text/javascript"></script>
-  <script src="/js/scriptTweets.js" type="text/javascript"></script>
+  <script src="/js/scriptTwitter.js" type="text/javascript"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
   @if (session()->has('success') || $errors->any())

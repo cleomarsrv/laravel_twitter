@@ -10,6 +10,9 @@
   <link href="/css/normalize.css" rel="stylesheet" type="text/css">
   <link href="/css/webflow.css" rel="stylesheet" type="text/css">
   <link href="/css/desafio.webflow.css" rel="stylesheet" type="text/css">
+
+  <link href="/css/toastr.css" rel="stylesheet" type="text/css">
+
   <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js" type="text/javascript"></script>
   <script type="text/javascript">WebFont.load({  google: {    families: ["PT Sans:400,400italic,700,700italic","Ubuntu:300,300italic,400,400italic,500,500italic,700,700italic"]  }});</script>
   <script type="text/javascript">!function(o,c){var n=c.documentElement,t=" w-mod-";n.className+=t+"js",("ontouchstart"in o||o.DocumentTouch&&c instanceof DocumentTouch)&&(n.className+=t+"touch")}(window,document);</script>
@@ -18,7 +21,7 @@
   <link href="/images/webclip.png" rel="apple-touch-icon">
 </head>
 <body class="body">
-
+  
   <div class="topo">
     <div class="container w-clearfix">
     <div class="div-azul"></div>
@@ -30,7 +33,7 @@
                 @csrf
                 <div class="div-text-field w-clearfix">
                     <input type="email" maxlength="200" placeholder="E-MAIL" id="email" name="email" required class="text-field-entrar margem-right w-input" value="{{ old('email') }}">
-                    <input type="password" maxlength="255" placeholder="SENHA" id="password" name="password" required class="text-field-entrar w-input">
+                    <input type="password" maxlength="200" placeholder="SENHA" id="password" name="password" required class="text-field-entrar w-input">
                     <a href="{{ route('password.request') }}" class="link-esqueceu-sua-senha">Esqueceu sua senha?</a>
                     @if ($errors->any())
                     <div class="alerta-erro">
@@ -53,6 +56,7 @@
             </div>
           </div>
         </div>
+
         <div class="div-cadastrar">
           <p class="cadastre-se">cadastre-se</p>
           <div class="w-form">
@@ -66,8 +70,8 @@
               @error('cadastro_email')
                 <p class="alerta-erro">{{ $message }}</p>
               @enderror
-              <input type="password" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_password" required onchange="confereSenha()" value="{{ old('cadastro_password') }}" data-name="Name 3" placeholder="SENHA" id="cadastro_password">
-              <input type="password" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_password_confirmation" required onchange="confereSenha()" data-name="Name 3" placeholder="CONFIRMAR SENHA" id="cadastro_password_confirmation" value="{{ old('cadastro_password_confirmation') }}">
+              <input type="password" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_password" required onchange="confereSenha()" value="{{ old('cadastro_password') }}" data-name="pass1" placeholder="SENHA" id="cadastro_password">
+              <input type="password" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_password_confirmation" required onchange="confereSenha()" data-name="pass2" placeholder="CONFIRMAR SENHA" id="cadastro_password_confirmation" value="{{ old('cadastro_password_confirmation') }}">
               @error('cadastro_password')
                 <p class="alerta-erro">{{ $message }}</p>
               @enderror
@@ -92,18 +96,27 @@
   </div>
   <script src="https://d3e54v103j8qbb.cloudfront.net/js/jquery-3.4.1.min.220afd743d.js" type="text/javascript" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
   <script src="/js/webflow.js" type="text/javascript"></script>
-
-  <script>
-    function confereSenha() {
-      const cadastro_password = document.querySelector('input[name=cadastro_password]');
-      const cadastro_password_confirmation = document.querySelector('input[name=cadastro_password_confirmation]');
-      
-      if (cadastro_password_confirmation.value === cadastro_password.value) {
-        cadastro_password_confirmation.setCustomValidity('');
-      } else {
-        cadastro_password_confirmation.setCustomValidity('as senhas digitadas não conferem');
+  <script src="/js/scriptTwitter.js" type="text/javascript"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  
+  @if (session()->has('success') || $errors->any() || session('status'))
+    <script>
+      toastr.options = {
+        "closeButton" : true,
+        positionClass: 'toast-top-center',
       }
-    }
-  </script>
+      
+      @if(Session::has('success'))
+        toastr.success("{{ Session::get('success') }}", '', {timeOut:2000});
+      @elseif (session('status'))
+        toastr.success("{{ session('status') }}", '222', {timeOut:2000});
+      @else
+        @foreach ($errors->all() as $error)
+            toastr.error("{{ $error }}", '', {timeOut:3500});
+        @endforeach
+      @endif
+    </script>
+  @endif
+
 </body>
 </html>

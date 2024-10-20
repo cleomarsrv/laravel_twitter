@@ -14,9 +14,9 @@
 
                 <h5>Email: {{old('email', $request->email)}}</h5>
                                 
-                <input type="password" class="text-field-cadastrar w-input" name="password" required placeholder="NOVA SENHA" id="password" required autocomplete="new-password">
+                <input type="password" class="text-field-cadastrar w-input" name="password" required placeholder="NOVA SENHA" id="password" required autocomplete="new-password" data-name="pass1" onchange="confereSenha()">
                 
-                <input type="password" class="text-field-cadastrar w-input" name="password_confirmation" required placeholder="CONFIRMAR SENHA" id="password_confirmation" required autocomplete="new-password">
+                <input type="password" class="text-field-cadastrar w-input" name="password_confirmation" required placeholder="CONFIRMAR SENHA" id="password_confirmation" required autocomplete="new-password" data-name="pass2" onchange="confereSenha()">
                 
                 @error('password')
                     <p class="alerta-erro">{{ $message }}</p>
