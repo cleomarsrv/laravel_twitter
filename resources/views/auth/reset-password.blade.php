@@ -13,17 +13,19 @@
                 <p class="cadastre-se">Redefinir senha</p>
 
                 <h5>Email: {{old('email', $request->email)}}</h5>
-                
-                <!-- Password -->
+                                
                 <input type="password" class="text-field-cadastrar w-input" name="password" required placeholder="NOVA SENHA" id="password" required autocomplete="new-password">
-                <!-- Confirm Password -->
+                
                 <input type="password" class="text-field-cadastrar w-input" name="password_confirmation" required placeholder="CONFIRMAR SENHA" id="password_confirmation" required autocomplete="new-password">
+                
                 @error('password')
                     <p class="alerta-erro">{{ $message }}</p>
                 @enderror
+                
                 @error('email')
                     <p class="alerta-erro">{{ $message }}</p>
                 @enderror
+                
                 <input type="submit" value="{{ __('Reset Password') }}" class="botao-cadastrar w-button" data-wait="por favor aguarde...">
                 </div>
             </form>

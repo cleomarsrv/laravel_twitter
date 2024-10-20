@@ -15,7 +15,7 @@ class FollowerController extends Controller
         $urlOrigem = url()->previous();
         $show = (strpos($urlOrigem, 'show_all=1') !== false) ? 1 : 0;
 
-        return redirect()->route('tweets.index', ['show_all' => $show])->with('success', 'seguido com sucesso');
+        return redirect()->route('tweets.index', ['show_all' => $show])->with('success', 'agora você segue ' . $user->name);
     }
 
     public function unfollow(User $user){
@@ -26,9 +26,8 @@ class FollowerController extends Controller
         $urlOrigem = url()->previous();
         $show = (strpos($urlOrigem, 'show_all=1') !== false) ? 1 : 0;
 
-        return redirect()->route('tweets.index', ['show_all' => $show])->with('success', 'você deixou de seguir este usuário');
+        return redirect()->route('tweets.index', ['show_all' => $show])->with('success', 'você deixou de seguir ' . $user->name);
     }
-
 
     public function getUser($id)
     {
@@ -46,7 +45,7 @@ class FollowerController extends Controller
             'name' => $user->name,
             'email' => $user->email,
             'is_following' => $isFollowing,
-            'is_self' => $is_self,  // Envia se é o próprio usuário
+            'is_self' => $is_self,
         ]);
     }
 

@@ -6,20 +6,20 @@
         </div>
 
         <div class="w-form">
-
             
             <form method="POST" action="{{ route('password.email') }}">
                 @csrf
 
                 <x-auth-session-status class="alerta-sucesso" :status="session('status')" />
 
-            <input type="email" class="text-field-cadastrar w-input" maxlength="256" name="email" required data-name="email" placeholder="E-MAIL" id="email" value="{{ old('email') }}" required autofocus>
-            @error('email')
-                <p class="alerta-erro">{{ $message }}</p>
-            @enderror
+                <input type="email" class="text-field-cadastrar w-input" maxlength="256" name="email" required data-name="email" placeholder="E-MAIL" id="email" value="{{ old('email') }}" required autofocus>
+ 
+                @error('email')
+                    <p class="alerta-erro">{{ $message }}</p>
+                @enderror
 
-            <input type="submit" value="{{ __('Email Password Reset Link') }}" class="botao-cadastrar w-button" data-wait="por favor aguarde...">
-        </form>
+                <input type="submit" value="{{ __('Email Password Reset Link') }}" class="botao-cadastrar w-button" data-wait="por favor aguarde...">
+            </form>
         </div>
     </div>
 

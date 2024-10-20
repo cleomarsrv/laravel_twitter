@@ -10,6 +10,12 @@ class LoginController extends Controller
 {
   public function index()
   {
+
+    // redireciona usuarios logados para a pagina de tweets
+    if (auth()->check()) {
+      return redirect()->route('tweets.index');
+    }
+
     return view('welcome');
   }
 

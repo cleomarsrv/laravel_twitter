@@ -47,7 +47,7 @@ class ComentarioController extends Controller
         $urlOrigem = url()->previous();
         $show = (strpos($urlOrigem, 'show_all=1') !== false) ? 1 : 0;
 
-        return redirect(url()->route('tweets.index', ['show_all' => $show]) . "#tweet-" . $request->tweet_id);
+        return redirect(url()->route('tweets.index', ['show_all' => $show]) . "#tweet-" . $request->tweet_id)->with('success', 'comentário postado!');
 
     }
  

@@ -59,7 +59,7 @@ class TweetController extends Controller
         $urlOrigem = url()->previous();
         $show = (strpos($urlOrigem, 'show_all=1') !== false) ? 1 : 0;
 
-        return redirect(route('tweets.index',  ['show_all' => $show]));
+        return redirect(route('tweets.index',  ['show_all' => $show]))->with('success', 'tweet postado!');
     }
 
 

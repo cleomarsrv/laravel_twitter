@@ -24,11 +24,6 @@
         {{ session()->get('success') }} 
     @endif
 
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-    @if (auth()->check())
-        Ja logado {{ auth()->user()->firstName }}  | <a href="{{ route('login.destroy') }}">logout</a>
-    @endif
-
   <div class="topo">
     <div class="container w-clearfix">
     <div class="div-azul"></div>
