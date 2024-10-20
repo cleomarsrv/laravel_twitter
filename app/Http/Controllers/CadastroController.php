@@ -17,15 +17,16 @@ class CadastroController extends Controller
     {
 
         $request->validate([
-            'cadastro_name' => 'required|string|max:100',
+            'cadastro_name' => 'required|string|max:200',
             'cadastro_email' => 'required|email|unique:users,email',
             'cadastro_password' => 'required|confirmed'
           ], [
-            'cadastro_email.required' => 'preencha campo email',
-            'cadastro_email.email' => 'preencha um email válido',
-            'cadastro_email.unique' => 'este email ja foi cadastrado',
-            'cadastro_password_confirmation.required' => 'digite uma senha válida',
-            'cadastro_password_confirmation.confirmed' => 'senhas digitadas são diferentes',
+            'cadastro_name.required' => 'digite o seu nome',
+            'cadastro_email.required' => 'digite campo email',
+            'cadastro_email.email' => 'digite um email válido',
+            'cadastro_email.unique' => 'este email já foi cadastrado',
+            'cadastro_password.required' => 'digite uma senha válida',
+            'cadastro_password.confirmed' => 'as senhas digitadas são diferentes',
           ]);
 
         // Criação do usuário

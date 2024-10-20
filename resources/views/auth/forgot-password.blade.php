@@ -12,7 +12,7 @@
 
                 <x-auth-session-status class="alerta-sucesso" :status="session('status')" />
 
-                <input type="email" class="text-field-cadastrar w-input" maxlength="256" name="email" required data-name="email" placeholder="E-MAIL" id="email" value="{{ old('email') }}" required autofocus>
+                <input type="email" class="text-field-cadastrar w-input" maxlength="200" name="email" required data-name="email" placeholder="E-MAIL" id="email" value="{{ old('email') }}" required autofocus>
  
                 @error('email')
                     <p class="alerta-erro">{{ $message }}</p>
