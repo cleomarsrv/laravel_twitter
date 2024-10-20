@@ -42,11 +42,10 @@
           <div class="w-form">
           <form method="POST" action="{{ route('tweets.store') }}" id="email-form" name="email-form" data-name="Email Form">
               @csrf
-              <textarea placeholder="O que está acontecendo?" maxlength="240" id="message" name="message" required class="texto-publicar w-input"></textarea>
+              <textarea placeholder="O que está acontecendo?" maxlength="1000" id="message" name="message" required class="texto-publicar w-input"></textarea>
               <input type="submit" value="Publicar" data-wait="Please wait..." class="botao-publicar w-button">
           </form>
-
-            <div class="w-form-done">
+          <div class="w-form-done">
               <div>Thank you! Your submission has been received!</div>
             </div>
             <div class="w-form-fail">
@@ -54,6 +53,7 @@
             </div>
           </div>
         </div>
+        
         <p class="feed">feed</p>
         @forelse ($tweets as $tweet)
         <div class="div-publicacao-feed" id="tweet-{{ $tweet->id }}">
@@ -71,20 +71,12 @@
             <p class="comentario">{{ $comentario->comentario }}</p>
           </div>
           @endforeach
-          
           <div class="w-form">
               <form action="{{ route('comentarios.store') }}" method="POST" id="email-form-2" name="email-form-2" data-name="Email Form 2" class="w-clearfix">
                 @csrf
                 <input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
-                <textarea name="comentario" placeholder="comente esta publicação" required maxlength="5000" id="field-2" class="textarea w-input"></textarea>
+                <textarea name="comentario" placeholder="comente esta publicação" maxlength="1000" required id="field-2" class="textarea w-input"></textarea>
                 <input type="submit" value="comentar" data-wait="Please wait..." class="submit-button w-button">
-                @if ($errors->any())
-                <div class="alerta-erro">
-                  @foreach ($errors->all() as $error)
-                      {{ $error }}
-                  @endforeach
-                </div>
-                @endif
               </form>
               <div class="w-form-done">
                 <div>Thank you! Your submission has been received!</div>

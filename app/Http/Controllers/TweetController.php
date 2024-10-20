@@ -41,13 +41,13 @@ class TweetController extends Controller
 
     public function store(Request $request): RedirectResponse
     {
-        // validação da publicação: estar preenchida e simulação de tweet limitado a 240caracteres
+        // validação da publicação: estar preenchida e simulação de tweet limitado a 1000caracteres
         $validated = $request->validate([
-            'message' => 'required|string|max:240',
+            'message' => 'required|string|max:1000',
         ], 
         [
             'message.required' => 'digite algo para publicar',
-            'message.max' => 'digite no máximo 240 caracteres',
+            'message.max' => 'digite no máximo 1000 caracteres',
         ]);
 
         $request->user()->tweets()->create($validated);

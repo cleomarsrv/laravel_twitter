@@ -32,9 +32,10 @@ class ComentarioController extends Controller
         $user_id = Tweet::find($request->tweet_id)->user_id;
 
         $request->validate([
-            'comentario' => 'required',
+            'comentario' => 'required|string|max:1000',
           ], [
             'comentario.required' => 'digite o comentário',
+            'comentario.max' => 'digite no máximo 1000 caracteres',
           ]);
 
         $comentario = Comentario::create([
