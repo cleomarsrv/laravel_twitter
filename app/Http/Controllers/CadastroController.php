@@ -16,12 +16,14 @@ class CadastroController extends Controller
     public function cadastrar(Request $request)
     {
 
-        $request->validate([
+      // validacoes pertinentes
+      $request->validate([
             'cadastro_name' => 'required|string|max:200',
             'cadastro_email' => 'required|email|unique:users,email',
             'cadastro_password' => 'required|confirmed'
           ], [
             'cadastro_name.required' => 'digite o seu nome',
+            'cadastro_name.max' => 'nome pode ter no máximo 200 caracteres',
             'cadastro_email.required' => 'digite campo email',
             'cadastro_email.email' => 'digite um email válido',
             'cadastro_email.unique' => 'este email já foi cadastrado',

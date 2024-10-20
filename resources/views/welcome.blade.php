@@ -29,7 +29,7 @@
             <form method="POST" action="{{ route('login.store') }}" id="form-login" name="form-login" data-name="Form Login" class="w-clearfix">
                 @csrf
                 <div class="div-text-field w-clearfix">
-                    <input type="email" maxlength="255" placeholder="E-MAIL" id="email" name="email" required class="text-field-entrar margem-right w-input" value="{{ old('email') }}">
+                    <input type="email" maxlength="200" placeholder="E-MAIL" id="email" name="email" required class="text-field-entrar margem-right w-input" value="{{ old('email') }}">
                     <input type="password" maxlength="255" placeholder="SENHA" id="password" name="password" required class="text-field-entrar w-input">
                     <a href="{{ route('password.request') }}" class="link-esqueceu-sua-senha">Esqueceu sua senha?</a>
                     @if ($errors->any())
