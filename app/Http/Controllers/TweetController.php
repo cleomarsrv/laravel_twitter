@@ -11,9 +11,6 @@ use Illuminate\View\View;
 
 class TweetController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
 
     public function index(Request $request)
     {
@@ -42,15 +39,15 @@ class TweetController extends Controller
         return view('tweets.index', compact('tweets', 'users', 'showAll'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request): RedirectResponse
     {
+        // validação da publicação: estar preenchida e simulação de tweet limitado a 240caracteres
         $validated = $request->validate([
-
             'message' => 'required|string|max:240',
-
+        ], 
+        [
+            'message.required' => 'digite algo para publicar',
+            'message.max' => 'digite no máximo 240 caracteres',
         ]);
 
         $request->user()->tweets()->create($validated);
@@ -63,42 +60,27 @@ class TweetController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
 
-    /**
-     * Display the specified resource.
-     */
     public function show(Tweet $tweet)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(Tweet $tweet)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, Tweet $tweet)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(Tweet $tweet)
     {
         //
