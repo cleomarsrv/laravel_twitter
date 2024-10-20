@@ -15,6 +15,11 @@ class FollowerController extends Controller
         $urlOrigem = url()->previous();
         $show = (strpos($urlOrigem, 'show_all=1') !== false) ? 1 : 0;
 
+        // se a requisacao foi feita no modal via AJAX, retorna JSON para correta exibição da mensagem de sucesso
+        if (request()->ajax()) {
+            return response()->json(['success' => 'agora você segue ' . $user->name]);
+        }
+
         return redirect()->route('tweets.index', ['show_all' => $show])->with('success', 'agora você segue ' . $user->name);
     }
 
@@ -25,6 +30,11 @@ class FollowerController extends Controller
         // para permanecer na mesma url apos seguir/desseguir
         $urlOrigem = url()->previous();
         $show = (strpos($urlOrigem, 'show_all=1') !== false) ? 1 : 0;
+
+        // se a requisacao foi feita no modal via AJAX, retorna JSON para correta exibição da mensagem de sucesso
+        if (request()->ajax()) {
+            return response()->json(['success' => 'você deixou de seguir ' . $user->name]);
+        }
 
         return redirect()->route('tweets.index', ['show_all' => $show])->with('success', 'você deixou de seguir ' . $user->name);
     }

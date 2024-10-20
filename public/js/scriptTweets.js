@@ -70,13 +70,26 @@ $('#modalBtnSeguir').click(function() {
             _token: csrfToken
         },
         success: function(data) {
+          toastr.options = {
+            "closeButton" : true,
+            positionClass: 'toast-top-center',
+          }
+          if (data.success) {
             
-            // recarrega a pagina, para atualizar o feed e a lista de usuarios
-            location.reload();
-          
+            // a mensagem de sucesso é exibida e aguarda 2 segundos antes de recarregar a página para atualizar feed e usuarios
+            toastr.success(data.success, '', { timeOut: 2000 });
+            $('#userModal').hide();
+            setTimeout(function() {
+                location.reload();
+            }, 2000);
+          }
         },
         error: function(response) {
-            alert('Erro seguir/desseguir. tente novamente');
+          toastr.options = {
+            "closeButton" : true,
+            positionClass: 'toast-top-center',
+          }  
+          toastr.error(response.error, '', { timeOut: 2000 });
         }
     });
 });
