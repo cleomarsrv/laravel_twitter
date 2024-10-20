@@ -35,15 +35,6 @@
                     <input type="email" maxlength="200" placeholder="E-MAIL" id="email" name="email" required class="text-field-entrar margem-right w-input" value="{{ old('email') }}">
                     <input type="password" maxlength="200" placeholder="SENHA" id="password" name="password" required class="text-field-entrar w-input">
                     <a href="{{ route('password.request') }}" class="link-esqueceu-sua-senha">Esqueceu sua senha?</a>
-                    @if ($errors->any())
-                    <div class="alerta-erro">
-                        <ul>
-                          @foreach ($errors->all() as $error)
-                              <li>{{ $error }}</li>
-                          @endforeach
-                        </ul>
-                    </div>
-                    @endif
 
                 </div>
                 <input type="submit" value="ENTRAR" data-wait="Please wait..." class="botao-entrar w-button">
@@ -63,18 +54,9 @@
             <form method="POST" action="{{ route('cadastrar') }}" id="form-cadastro" name="form-cadastro" data-name="Form Cadastro">
               @csrf
               <input type="text" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_name" required data-name="Name" value="{{ old('cadastro_name') }}" placeholder="NOME" id="cadastro_name">
-              @error('cadastro_name')
-                <p class="alerta-erro">{{ $message }}</p>
-              @enderror
               <input type="email" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_email" required data-name="cadastro_email" placeholder="E-MAIL" id="cadastro_email" value="{{ old('cadastro_email') }}">
-              @error('cadastro_email')
-                <p class="alerta-erro">{{ $message }}</p>
-              @enderror
               <input type="password" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_password" required onchange="confereSenha()" value="{{ old('cadastro_password') }}" data-name="pass1" placeholder="SENHA" id="cadastro_password">
               <input type="password" class="text-field-cadastrar w-input" maxlength="200" name="cadastro_password_confirmation" required onchange="confereSenha()" data-name="pass2" placeholder="CONFIRMAR SENHA" id="cadastro_password_confirmation" value="{{ old('cadastro_password_confirmation') }}">
-              @error('cadastro_password')
-                <p class="alerta-erro">{{ $message }}</p>
-              @enderror
               <input type="submit" value="CADASTRAR" data-wait="por favor aguarde..." class="botao-cadastrar w-button">
             </form>
 
