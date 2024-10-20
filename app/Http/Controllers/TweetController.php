@@ -20,13 +20,14 @@ class TweetController extends Controller
         $showAll = $request->input('show_all', 0);
     
         if ($showAll == 1) {
+            // buscar todos os tweets de todos os usuarios
             $tweets = Tweet::with('user', 'comentarios')->orderBy('created_at', 'desc')->get();
         } else {
+
             // Exibir apenas os tweets do usuário logado e quem ele segue
             $followingIds = $user->followings()->pluck('users.id')->toArray();
             // Adiciona o próprio usuário à consulta
             $followingIds[] = $user->id;
-    
             $tweets = Tweet::with('user', 'comentarios')
                            ->whereIn('user_id', $followingIds)
                            ->orderBy('created_at', 'desc')
@@ -50,6 +51,7 @@ class TweetController extends Controller
             'message.max' => 'digite no máximo 1000 caracteres',
         ]);
 
+        // criação de um novo tweet com os dados validados para o usuário autenticado
         $request->user()->tweets()->create($validated);
 
         // para permanecer na mesma url apos publicar
@@ -58,7 +60,6 @@ class TweetController extends Controller
 
         return redirect(route('tweets.index',  ['show_all' => $show]))->with('success', 'tweet postado!');
     }
-
 
     public function create()
     {

@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // criacao da tabela comentarios no banco de dados, sendo chave estrangeira usuário e tweet
         Schema::create('comentarios', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();

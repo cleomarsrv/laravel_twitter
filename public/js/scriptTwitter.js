@@ -1,5 +1,5 @@
 $(document).ready(function() {
-
+    // funcao para abrir o modal de usuário
     $('.openUserModal').on('click', function(e) {
       e.preventDefault();
       
@@ -34,7 +34,7 @@ $(document).ready(function() {
                   followButton.removeClass().addClass('btn btn-secondary')
                   followButton.attr('data-action', '');
               }
-                
+
               $('#userModal').modal('show');
             }
       }); 
@@ -42,7 +42,8 @@ $(document).ready(function() {
 });
 
 $('#modalBtnSeguir').click(function() {
-    
+  
+  // funcao para definir acao do botao seguir/desseguir  
   // Obtém o ID do usuário
     var userId = $(this).attr('data-user-id'); 
     // Verifica se a ação é 'follow' ou 'unfollow'

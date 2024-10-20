@@ -8,29 +8,20 @@ use Illuminate\Http\Request;
 
 class ComentarioController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Tweet $tweet, Request $request)
     {
-        $user_id = Tweet::find($request->tweet_id)->user_id;
 
+        //validacoes pertinentes
         $request->validate([
             'comentario' => 'required|string|max:1000',
           ], [
@@ -38,6 +29,7 @@ class ComentarioController extends Controller
             'comentario.max' => 'digite no máximo 1000 caracteres',
           ]);
 
+        // criacao do novo comentario no banco de dados
         $comentario = Comentario::create([
             'comentario' => $request['comentario'],
             'tweet_id' => $request['tweet_id'],

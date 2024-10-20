@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // criacao da tabela tweets no banco de dados, sendo chave estrangeira o usuário
         Schema::create('tweets', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();

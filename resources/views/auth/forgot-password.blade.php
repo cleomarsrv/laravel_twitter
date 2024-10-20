@@ -1,4 +1,5 @@
 @extends('layouts.base')
+@section('title', 'Redefinir senha')
 @section('content')
     <div class="div-cadastrar">
         <div style="margin-bottom:5px;y">

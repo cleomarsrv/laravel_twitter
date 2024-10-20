@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // criacao da tabela intermediária follower_user, com 2 chaves estrangeiras, sendo follower_id do usuário logado e user_id o usuário que será seguido
         Schema::create('follower_user', function (Blueprint $table) {
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->foreignId('follower_id')->constrained('users')->cascadeOnDelete();

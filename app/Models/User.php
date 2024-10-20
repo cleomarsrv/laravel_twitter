@@ -47,12 +47,13 @@ class User extends Authenticatable
         ];
     }
 
+    // método usado para acessar os tweets associados a um usuário específico. relação Um (usuário) para muitos (tweets).
     public function tweets(): HasMany
-
     {
         return $this->hasMany(Tweet::class);
     }
-
+    
+    // método usado para vincular seguidor ao usuário escolhido, relação Muitos (usários) para Muitos (usuários) feita em uma tabela intermediária no banco de dados
     public function followings()
     {
         return $this->belongsToMany(User::class, 'follower_user', 'follower_id', 'user_id')->withTimestamps();

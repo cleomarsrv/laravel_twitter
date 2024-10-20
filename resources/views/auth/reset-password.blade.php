@@ -1,4 +1,7 @@
 @extends('layouts.base')
+
+@section('title', 'Redefinir senha')
+
 @section('content')
     <div class="div-cadastrar">
         <div class="w-form">
@@ -8,6 +11,7 @@
                 {{-- token resetar senha --}}
                 <input type="hidden" name="token" value="{{ $request->route('token') }}">
                 
+                {{-- campo email como hidden para poder completar a requisição, mas sem poder ser alterado aqui --}}
                 <x-text-input type="hidden" id="email" name="email" class="text-field-cadastrar w-input" :value="old('email', $request->email)"/>
 
                 <p class="cadastre-se">Redefinir senha</p>

@@ -4,14 +4,6 @@
   margin-left: auto;
 }
 
-.alerta-erro {
-  color:red;
-}
-
-.alerta-sucesso {
-  color:green;
-}
-
 .body {
   background-color: #fff;
 }
@@ -123,6 +115,14 @@
   text-align: center;
 }
   
+.alerta-erro {
+  color:red;
+}
+
+.alerta-sucesso {
+  color:green;
+}
+
 .div-usuarios {
   position: fixed;
   left: auto;

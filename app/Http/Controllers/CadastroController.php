@@ -31,7 +31,7 @@ class CadastroController extends Controller
             'cadastro_password.confirmed' => 'as senhas digitadas são diferentes',
           ]);
 
-        // Criação do usuário
+        // Criação do novo usuário no banco de dados
         $user = User::create([
             'name' => $request->cadastro_name,
             'email' => $request->cadastro_email,
