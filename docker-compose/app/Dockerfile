@@ -30,13 +30,6 @@ RUN apt-get install -y nodejs
 # Copiar os arquivos do projeto para o contêiner
 COPY . .
 
-# permissoes corretas para o nginx
-RUN chown -R www-data:www-data /var/www/storage
-RUN chmod -R 775 /var/www/storage
-
-# Instalar dependências do Node.js e executar a build
-RUN npm install
-
 # Adiciona a permissão de execução ao script
 RUN chmod +x start.sh
 
