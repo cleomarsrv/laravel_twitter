@@ -4,6 +4,9 @@
 RUN chown -R www-data:www-data /var/www/storage
 RUN chmod -R 775 /var/www/storage
 
+# Instalar dependências do PHP via Composer
+composer install
+
 # Instalar dependências do Node.js e executar a build
 RUN npm install
 
