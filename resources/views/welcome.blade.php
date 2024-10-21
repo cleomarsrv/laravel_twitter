@@ -91,7 +91,7 @@
       @if(Session::has('success'))
         toastr.success("{{ Session::get('success') }}", '', {timeOut:2000});
       @elseif (session('status'))
-        toastr.success("{{ session('status') }}", '222', {timeOut:2000});
+        toastr.success("{{ session('status') }}", '', {timeOut:2000});
       @else
         @foreach ($errors->all() as $error)
             toastr.error("{{ $error }}", '', {timeOut:3500});
