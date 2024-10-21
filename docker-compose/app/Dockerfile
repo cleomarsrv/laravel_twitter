@@ -20,14 +20,19 @@ RUN apt-get update && apt-get install -y \
 # Definir o diretório de trabalho
 WORKDIR /var/www
 
-# Copiar os arquivos do projeto para o contêiner
-COPY . .
-
 # Instalar o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash -
+
 RUN apt-get install -y nodejs
+
+# Copiar os arquivos do projeto para o contêiner
+COPY . .
+
+# permissoes corretas para o nginx
+RUN chown -R www-data:www-data /var/www/storage
+RUN chmod -R 775 /var/www/storage
 
 # Instalar dependências do Node.js e executar a build
 RUN npm install
