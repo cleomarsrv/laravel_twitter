@@ -1,5 +1,5 @@
 # Laravel Twitter
-Esté é um projeto apresenta uma versão simplificada do twitter. Funcionalidades criadas:
+Este é um projeto que apresenta uma versão simplificada do twitter. Funcionalidades criadas:
   - cadastro de usuário
   - login
   - esqueci minha senha
